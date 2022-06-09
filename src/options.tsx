@@ -1,72 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-const Options = () => {
-  const [color, setColor] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
-  const [like, setLike] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Restores select box and checkbox state using the preferences
-    // stored in chrome.storage.
-    chrome.storage.sync.get(
-      {
-        favoriteColor: "red",
-        likesColor: true,
-      },
-      (items) => {
-        setColor(items.favoriteColor);
-        setLike(items.likesColor);
-      }
-    );
-  }, []);
-
-  const saveOptions = () => {
-    // Saves options to chrome.storage.sync.
-    chrome.storage.sync.set(
-      {
-        favoriteColor: color,
-        likesColor: like,
-      },
-      () => {
-        // Update status to let user know options were saved.
-        setStatus("Options saved.");
-        const id = setTimeout(() => {
-          setStatus("");
-        }, 1000);
-        return () => clearTimeout(id);
-      }
-    );
-  };
-
-  return (
-    <>
-      <div>
-        Favorite color: <select
-          value={color}
-          onChange={(event) => setColor(event.target.value)}
-        >
-          <option value="red">red</option>
-          <option value="green">green</option>
-          <option value="blue">blue</option>
-          <option value="yellow">yellow</option>
-        </select>
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={like}
-            onChange={(event) => setLike(event.target.checked)}
-          />
-          I like colors.
-        </label>
-      </div>
-      <div>{status}</div>
-      <button onClick={saveOptions}>Save</button>
-    </>
-  );
-};
+const Options = () => (
+  <>
+    <div>
+      En gros, quand on arrive avec un raid on ne compte pas dans les stats,
+      ducoup il faut enlever l'indicateur de raid dans l'url, ?referer=raid,
+      cette extension permet de le faire en 1 click
+    </div>
+    <a href="https://ibb.co/5L7c88Z">
+      <img
+        src="https://i.ibb.co/cQmTFFq/Screenshot-2022-06-09-at-18-34-48.png"
+        alt="Screenshot-2022-06-09-at-18-34-48"
+      ></img>
+    </a>
+  </>
+);
 
 ReactDOM.render(
   <React.StrictMode>
